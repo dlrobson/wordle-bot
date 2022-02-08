@@ -1,0 +1,10 @@
+[requires]
+catch2/2.13.1
+poco/1.9.4
+
+[generators]
+cmake
+
+[tool_requires]
+cmake_find_package
+cmake_paths
