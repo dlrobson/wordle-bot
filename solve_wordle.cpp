@@ -1,11 +1,11 @@
 #include <iostream>
-#include <solver/A2DD.h>
+#include <solver/WordleGuesser.h>
 
 int main(int argc, char **argv) {
 
   std::cout << "hi23" << std::endl;
 
-  const auto a = A2DD(0, 1);
+  const auto a = WordleGuesser(0, 1);
   if (a.getSum() < 10) {
     std::cout << "OH NO!" << std::endl;
   }

@@ -1,5 +1,5 @@
 add_library(solver
-    src/A2DD.cpp
+    src/WordleGuesser.cpp
 )
 
 target_include_directories(solver PUBLIC
