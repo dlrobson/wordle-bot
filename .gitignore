@@ -1,0 +1,4 @@
+build*
+CMakeCache.txt
+.cache*
+.vscode*
