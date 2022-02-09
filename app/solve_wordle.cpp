@@ -1,5 +1,5 @@
 // #include <iostream>
-// #include <solver/WordleGuesser.h>
+#include <solver/WordleGuesser.h>
 
 // int main(int argc, char **argv) {
 
