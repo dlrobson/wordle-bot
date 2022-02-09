@@ -18,19 +18,18 @@ Set up `conan`:
 ```bash
 conan profile new --detect default
 conan profile update settings.compiler.libcxx=libstdc++11 default
-mkdir build && cd build
 ```
 
-For your first installation, you will also need to run this while in the `build` directory:
+To build the project, while in the `build` directory, run:
 ```bash
-conan install ..
+mkdir build && cd build
+cmake .. -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release
+cmake --build .
 ```
-
-Also run that command when you add a package to conan. You can add a conan file to the `conanfile.txt` file. Check for conan packages at the [conan center](https://conan.io/center/).
 
 You should be able to then run the solver using
 ```bash
-bin/build/solve_wordle word
+build/bin/solve_wordle word
 ```
 
 It will output the words it guessed to reach your input word!

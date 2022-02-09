@@ -1,6 +1,0 @@
-[submodule "3rd-party/wordlist"]
-	path = 3rd-party/wordlist
-	url = https://gist.github.com/a03ef2cba789d8cf00c08f767e0fad7b.git
-[submodule "3rd-party/google-ngrams"]
-	path = 3rd-party/google-ngrams
-	url = https://github.com/econpy/google-ngrams.git

@@ -2,3 +2,4 @@ build*
 CMakeCache.txt
 .cache*
 .vscode*
+compile_commands.json
