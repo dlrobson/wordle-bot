@@ -34,6 +34,16 @@ conan_cmake_install(
     SETTINGS
     ${settings})
 
+option(FORCE_COLORED_OUTPUT
+       "Always produce ANSI-colored output (GNU/Clang only)." FALSE)
+if(${FORCE_COLORED_OUTPUT})
+    if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+        add_compile_options(-fdiagnostics-color=always)
+    elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+        add_compile_options(-fcolor-diagnostics)
+    endif()
+endif()
+
 # Strict compile errors, with warnings
 if(CMAKE_COMPILER_IS_GNUCC)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")

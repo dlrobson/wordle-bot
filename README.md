@@ -22,8 +22,9 @@ conan profile update settings.compiler.libcxx=libstdc++11 default
 
 To build the project, while in the `build` directory, run:
 ```bash
+sudo apt install ninja-build
 mkdir build && cd build
-cmake .. -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release
+cmake -DFORCE_COLORED_OUTPUT=ON -DCMAKE_BUILD_TYPE=Debug .. -G "Ninja" 
 cmake --build .
 ```
 
