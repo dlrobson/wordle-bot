@@ -2,6 +2,7 @@
 #include <solver/wordle_solver.h>
 
 #include <iostream>
+#include <string>
 
 int main(int argc, char** argv) {
     const auto path =
@@ -9,14 +10,18 @@ int main(int argc, char** argv) {
         "wordle-answers-alphabetical.txt";
 
     std::string word = "slate";
-    if (argc == 2) {
+    auto mode = 0;
+    if (argc <= 3) {
         word = argv[1];
+    }
+    if (argc == 3) {
+        mode = std::stoi(argv[2]);
     }
 
     if (word == "-b") {
         SolverBenchmark benchmark(path, path);
         std::cout << "Running benchmark..." << std::endl;
-        const auto results = benchmark();
+        const auto results = benchmark(mode);
 
         auto total = 0;
         auto weighted_total = 0;
@@ -29,8 +34,8 @@ int main(int argc, char** argv) {
         }
 
         std::cout << std::endl
-                  << "Average:" << weighted_total / static_cast<float>(total)
-                  << std::endl;
+                  << "Average Guesses: "
+                  << weighted_total / static_cast<float>(total) << std::endl;
         return EXIT_SUCCESS;
     }
 
@@ -40,7 +45,7 @@ int main(int argc, char** argv) {
     }
 
     WordleSolver solver(path);
-    const auto solution = solver.positional_solve(word);
+    const auto solution = solver.solve(word, mode);
     for (const auto& w : solution) {
         std::cout << w << std::endl;
     }

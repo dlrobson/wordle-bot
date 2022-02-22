@@ -65,30 +65,22 @@ void WordleSolver::generate_statistics() {
     }
 }
 
-std::vector<std::string> WordleSolver::positional_solve(
-    std::string wordle_word) {
+std::vector<std::string> WordleSolver::solve(std::string wordle_word,
+                                             size_t method_id) {
     std::string guess = "";
 
     while (guess != wordle_word) {
-        guess = positional_next_word();
-        word_guesses_.emplace_back(guess);
-
-        if (guess == wordle_word) {
-            return word_guesses_;
+        switch (method_id) {
+            case 0:
+                guess = positional_next_word();
+                break;
+            case 1:
+                guess = frequency_next_word();
+                break;
+            case 2:
+                guess = foresight_next_word();
+                break;
         }
-
-        update_list(wordle_word, guess);
-    }
-
-    return word_guesses_;
-}
-
-std::vector<std::string> WordleSolver::frequency_solve(
-    std::string wordle_word) {
-    std::string guess = "";
-
-    while (guess != wordle_word) {
-        guess = frequency_next_word();
         word_guesses_.emplace_back(guess);
 
         if (guess == wordle_word) {
@@ -161,6 +153,7 @@ std::string WordleSolver::frequency_next_word() {
             const auto& letter = word[letter_i];
             // If this letter has already been read, then count how many
             // times it's been accounted for already
+            // auto occurences = std::count(word.begin(), word.end(), letter);
             auto occurences = 1;
             if (std::count(word.begin(), word.end(), letter) != 1) {
                 for (auto letter_j = 0; letter_j < letter_i; letter_j++) {
@@ -181,6 +174,7 @@ std::string WordleSolver::frequency_next_word() {
             // the duplicate letters
             const auto letter_val = letter_to_index(letter);
             const auto letter_score = pow(letter_freq_[letter_val], occurences);
+            // const auto letter_score = letter_freq_[letter_val] / occurences;
             score += letter_score;
         }
 
@@ -192,6 +186,8 @@ std::string WordleSolver::frequency_next_word() {
     }
     return best_word;
 }
+
+std::string WordleSolver::foresight_next_word() { return ""; }
 
 void WordleSolver::update_list(const std::string& wordle_word,
                                const std::string& guess) {

@@ -9,11 +9,11 @@ SolverBenchmark::SolverBenchmark(const std::string& word_list_path,
     solver_ = WordleSolver();
 }
 
-std::vector<size_t> SolverBenchmark::operator()() {
+std::vector<size_t> SolverBenchmark::operator()(size_t mode) {
     std::vector<size_t> guess_frequency(MAX_COUNT_SIZE, 0);
     for (const auto& word : word_list_) {
         solver_.set_word_list(allowed_word_list_);
-        const auto sol = solver_.positional_solve(word);
+        const auto sol = solver_.solve(word, mode);
         guess_frequency[sol.size() - 1]++;
     }
     return guess_frequency;

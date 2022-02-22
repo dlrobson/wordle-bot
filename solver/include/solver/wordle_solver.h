@@ -13,11 +13,11 @@ class WordleSolver {
     WordleSolver(const std::string& word_list_path);
     WordleSolver(std::vector<std::string> word_list);
 
+    std::vector<std::string> solve(std::string wordle_word, size_t method_id);
+
     std::string positional_next_word();
     std::string frequency_next_word();
-
-    std::vector<std::string> positional_solve(std::string wordle_word);
-    std::vector<std::string> frequency_solve(std::string wordle_word);
+    std::string foresight_next_word();
 
     void set_word_list(std::vector<std::string> word_list);
 
