@@ -1,12 +1,14 @@
-#include <solver/WordleGuesser.h>
+#include <solver/solver_benchmark.h>
+#include <solver/wordle_solver.h>
 
+#include <cstddef>
 #include <cstdlib>
 #include <iostream>
 
 int main(int argc, char** argv) {
-    WordleGuesser solver(
+    const auto path =
         "/home/dlrobson/dev/wordle-bot/3rd-party/wordlist/"
-        "wordle-answers-alphabetical.txt");
+        "wordle-answers-alphabetical.txt";
 
     std::string word = "slate";
     if (argc == 2) {
@@ -14,8 +16,23 @@ int main(int argc, char** argv) {
     }
 
     if (word == "-b") {
-        // RUN BENCHMARK
-        std::cout << "Average Guesses: " << std::endl;
+        SolverBenchmark benchmark(path, path);
+        std::cout << "Running benchmark..." << std::endl;
+        const auto results = benchmark();
+
+        auto total = 0;
+        auto weighted_total = 0;
+
+        std::cout << "Bins: ";
+        for (size_t i = 0; i < results.size(); i++) {
+            total += results[i];
+            weighted_total += (i + 1) * results[i];
+            std::cout << results[i] << '\t';
+        }
+
+        std::cout << std::endl
+                  << "Average:" << weighted_total / static_cast<float>(total)
+                  << std::endl;
         return EXIT_SUCCESS;
     }
 
@@ -24,7 +41,8 @@ int main(int argc, char** argv) {
         return EXIT_FAILURE;
     }
 
-    const auto solution = solver.solve(word);
+    WordleSolver solver(path);
+    const auto solution = solver.positional_solve(word);
     for (const auto& w : solution) {
         std::cout << w << std::endl;
     }
