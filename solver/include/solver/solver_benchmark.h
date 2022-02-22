@@ -1,6 +1,9 @@
 #pragma once
 
-#include <solver/wordle_solver.h>
+#include <solver/solver.h>
+
+#include <cstddef>
+#include <memory>
 
 class SolverBenchmark {
    public:
@@ -10,9 +13,11 @@ class SolverBenchmark {
     std::vector<size_t> operator()(size_t mode);
 
    private:
-    WordleSolver solver_;
+    std::unique_ptr<Solver> solver_ = nullptr;
 
-    std::vector<std::string> word_list_;
+    void set_solver(size_t mode);
 
-    std::vector<std::string> allowed_word_list_;
+    Wordle::WordList word_list_;
+
+    Wordle::WordList allowed_word_list_;
 };

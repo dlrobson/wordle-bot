@@ -1,5 +1,7 @@
 #include <solver/solver_benchmark.h>
-#include <solver/wordle_solver.h>
+// #include <solver/wordle.h>
+
+#include <solver/positional_solver.h>
 
 #include <iostream>
 #include <string>
@@ -44,8 +46,8 @@ int main(int argc, char** argv) {
         return EXIT_FAILURE;
     }
 
-    WordleSolver solver(path);
-    const auto solution = solver.solve(word, mode);
+    PositionalSolver solver(path);
+    const auto solution = solver.solve(word);
     for (const auto& w : solution) {
         std::cout << w << std::endl;
     }
