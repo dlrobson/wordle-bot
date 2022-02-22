@@ -134,8 +134,8 @@ std::string WordleSolver::positional_next_word() {
             // the duplicate letters
             const auto letter_val = letter_to_index(letter);
             const auto letter_score =
-                letter_freq_[letter_val] *
-                pow(location_letter_freq_[letter_i][letter_val], occurences);
+                location_letter_freq_[letter_i][letter_val] *
+                pow(letter_freq_[letter_val], occurences);
             score += letter_score;
         }
 
