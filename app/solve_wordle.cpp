@@ -1,8 +1,6 @@
 #include <solver/solver_benchmark.h>
 #include <solver/wordle_solver.h>
 
-#include <cstddef>
-#include <cstdlib>
 #include <iostream>
 
 int main(int argc, char** argv) {
