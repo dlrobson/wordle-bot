@@ -3,33 +3,16 @@
 #include <solver/wordle_utils.h>
 
 #include <algorithm>
-#include <string>
 #include <vector>
 
-FrequencySolver::FrequencySolver(const std::string& word_list_path)
-    : original_word_list_{read_list(word_list_path)},
-      wordle_{Wordle(original_word_list_, Wordle::Word())} {};
+FrequencySolver::FrequencySolver(const std::string& word_list_path) {
+    original_word_list_ = read_list(word_list_path);
+    wordle_ = Wordle(original_word_list_, Wordle::Word());
+}
 
-FrequencySolver::FrequencySolver(Wordle::WordList word_list)
-    : original_word_list_{std::move(word_list)},
-      wordle_{Wordle(original_word_list_, Wordle::Word())} {};
-
-std::vector<Wordle::Word> FrequencySolver::solve(Wordle::Word wordle_word) {
-    wordle_.reset(original_word_list_, wordle_word);
-    Wordle::WordList solution_path;
-    Wordle::Word guess = "";
-    while (guess != wordle_word) {
-        guess = next_word();
-        solution_path.emplace_back(guess);
-
-        if (guess == wordle_word) {
-            return solution_path;
-        }
-
-        wordle_.update_list(guess);
-    }
-
-    return solution_path;
+FrequencySolver::FrequencySolver(Wordle::WordList word_list) {
+    original_word_list_ = std::move(word_list);
+    wordle_ = Wordle(original_word_list_, Wordle::Word());
 }
 
 Wordle::Word FrequencySolver::next_word() {

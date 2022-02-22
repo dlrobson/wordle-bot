@@ -3,33 +3,16 @@
 #include <solver/wordle_utils.h>
 
 #include <algorithm>
-#include <string>
 #include <vector>
 
-PositionalSolver::PositionalSolver(const std::string& word_list_path)
-    : original_word_list_{read_list(word_list_path)},
-      wordle_{Wordle(original_word_list_, Wordle::Word())} {};
+PositionalSolver::PositionalSolver(const std::string& word_list_path) {
+    original_word_list_ = read_list(word_list_path);
+    wordle_ = Wordle(original_word_list_, Wordle::Word());
+}
 
-PositionalSolver::PositionalSolver(Wordle::WordList word_list)
-    : original_word_list_{std::move(word_list)},
-      wordle_{Wordle(original_word_list_, Wordle::Word())} {};
-
-std::vector<Wordle::Word> PositionalSolver::solve(Wordle::Word wordle_word) {
-    wordle_.reset(original_word_list_, wordle_word);
-    Wordle::WordList solution_path;
-    Wordle::Word guess = "";
-    while (guess != wordle_word) {
-        guess = next_word();
-        solution_path.emplace_back(guess);
-
-        if (guess == wordle_word) {
-            return solution_path;
-        }
-
-        wordle_.update_list(guess);
-    }
-
-    return solution_path;
+PositionalSolver::PositionalSolver(Wordle::WordList word_list) {
+    original_word_list_ = std::move(word_list);
+    wordle_ = Wordle(original_word_list_, Wordle::Word());
 }
 
 Wordle::Word PositionalSolver::next_word() {

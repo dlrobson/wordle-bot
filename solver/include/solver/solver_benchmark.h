@@ -1,9 +1,10 @@
 #pragma once
 
 #include <solver/solver.h>
+#include <solver/wordle.h>
 
-#include <cstddef>
 #include <memory>
+#include <string>
 
 class SolverBenchmark {
    public:

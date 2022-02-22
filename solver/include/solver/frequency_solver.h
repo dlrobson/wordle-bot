@@ -1,9 +1,9 @@
 #pragma once
 
 #include <solver/solver.h>
+#include <solver/wordle.h>
 
 #include <string>
-#include <vector>
 
 class FrequencySolver : public Solver {
    public:
@@ -11,12 +11,6 @@ class FrequencySolver : public Solver {
     FrequencySolver(Wordle::WordList word_list);
     ~FrequencySolver() = default;
 
-    Wordle::WordList solve(Wordle::Word wordle_word) override;
-
    private:
     Wordle::Word next_word() override;
-
-    Wordle::WordList original_word_list_;
-
-    Wordle wordle_;
 };

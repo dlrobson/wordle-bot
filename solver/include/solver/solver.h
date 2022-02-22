@@ -3,11 +3,15 @@
 #include <solver/wordle.h>
 
 #include <string>
-#include <vector>
 
 class Solver {
+   protected:
+    Wordle wordle_;
+
+    Wordle::WordList original_word_list_;
+
    public:
-    virtual Wordle::WordList solve(Wordle::Word wordle_word) = 0;
+    Wordle::WordList solve(Wordle::Word wordle_word);
 
    private:
     virtual Wordle::Word next_word() = 0;
